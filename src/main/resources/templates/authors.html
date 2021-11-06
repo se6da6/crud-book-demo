@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table.border {border: black solid; border-collapse: collapse;}
+        table.border td {border: black solid thin}
+        table.noborder td {border: none}
+    </style>
+
+</head>
+<body>
+    <h1>Authors Page</h1>
+
+    <table class="border">
+        <tr>
+            <th colspan="2">Authors</th>
+            <tr th:each="author:${authors}">
+                <td th:text="${author.firstName}"></td>
+                <td th:text="${author.lastName}"></td>
+                <td>
+                    <table class='noborder'>
+                        <tr th:each="book:${author.books}">
+                                <td th:text="${book.title}"></td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tr>
+
+    </table>
+
+
+</body>
+</html>
