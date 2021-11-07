@@ -1,4 +1,4 @@
-package comp31.cruddemo.model;
+package comp31.cruddemo.model.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -6,46 +6,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import comp31.cruddemo.model.Book;
-import comp31.cruddemo.repositories.AuthorRepo;
-import comp31.cruddemo.repositories.BookRepo;
+import comp31.cruddemo.services.BookService;
+
 
 @Controller
 public class BookController {
-
-    BookRepo bookRepo;
-    AuthorRepo authorRepo;
     
+    BookService bookService;
+
     @Autowired
-    public BookController(BookRepo bookRepo, AuthorRepo authorRepo) {
+    public BookController(BookService bookService) {
         super();
-        this.bookRepo = bookRepo;
-        this.authorRepo = authorRepo;
+        this.bookService = bookService;
     }
 
     Logger logger = LoggerFactory.getLogger(BookController.class);
     
-    @GetMapping("/books")
-    public String getBooks(Model model)
+    @GetMapping("/")
+    public String getIndex()
     {
-        logger.info(">>>>>>>>>>>>>   Get Authors");
+            return "index";
+    }
 
-        Iterable<Book> books = bookRepo.findAll();
-
-        for (Book book : books)
-        {
-            logger.info(book.getTitle());
+    @GetMapping("/books")
+    public String getBooks(
+        @RequestParam(required=false) String firstName, 
+        @RequestParam(required=false) String lastName, 
+        Model model)
+    {
+        boolean authorNameInvalid = 
+            firstName == null || firstName.isEmpty() || 
+            lastName  == null || lastName.isEmpty();
+        
+        if (authorNameInvalid)
+        {   model.addAttribute("books", bookService.findBooks());
         }
-        model.addAttribute("books", books);
-
+        else
+        {   logger.info("Author Name: ", firstName + " " + lastName);
+            model.addAttribute("books", bookService.findBooksByAuthor(firstName,lastName));
+        }
         return "books";
     }
 
     @GetMapping("/authors")
     public String getAuthors(Model model)
     {
-        model.addAttribute("authors" , authorRepo.findAll());
+        model.addAttribute("authors" , bookService.findAuthors());
         return "authors";
     }
 
