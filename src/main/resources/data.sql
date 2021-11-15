@@ -4,6 +4,7 @@ INSERT INTO AUTHOR(AUTHOR_ID, FIRST_NAME, LAST_NAME)
     (     NULL, 'Craig','Wells'    ),
     (     NULL, 'Joshua','Bloch'   ),
     (     NULL, 'Alex','Antonov'   ),
+    (     NULL, 'John','Carnell'   ),
     (     NULL, 'Joyce','Farrell'  ),
     (     NULL, 'Cay','Horstmann'  ), 
     (     NULL, 'Janet','Gregory'  ), 
