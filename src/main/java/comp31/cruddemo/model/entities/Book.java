@@ -13,23 +13,21 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="BOOK")
+@Table(name = "BOOK")
 public class Book {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="BOOK_ID")
+    @Column(name = "BOOK_ID")
     private Long id;
 
-
-    @Column(name="BOOK_TITLE")
+    @Column(name = "BOOK_TITLE")
     private String title;
 
-
-    @Column(name="BOOK_YEAR")
+    @Column(name = "BOOK_YEAR")
     private String year;
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "AUTHOR_ID", nullable = true)
     private Author author;
 }
